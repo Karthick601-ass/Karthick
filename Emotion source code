@@ -1,0 +1,21 @@
+Install required packages if not already installed:
+# pip install transformers torch
+
+from transformers import pipeline
+
+# Load emotion analysis pipeline
+emotion_classifier = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base", return_all_scores=False)
+
+# Sample social media posts
+texts = [
+    "I'm so excited about the new product launch!",
+    "Feeling really down today… nothing is going right.",
+    "Just another boring day, nothing special.",
+    "This service is absolutely terrible, I'm angry!",
+    "I love how helpful everyone has been."
+]
+
+# Analyze emotions
+for text in texts:
+    result = emotion_classifier(text)[0]
+    print(f"Text: {text}\nPredicted Emotion: {result['label']} (Score: {result['score']:.2f})\n")
